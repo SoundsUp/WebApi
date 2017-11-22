@@ -10,10 +10,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="StructureMap" Version="4.5.3" />
+    <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\..\..\..\.nuget\packages\structuremap.automocking.moq\4.0.0.315\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

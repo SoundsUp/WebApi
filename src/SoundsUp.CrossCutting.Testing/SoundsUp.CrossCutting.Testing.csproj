@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
-    <PackageReference Include="Moq" Version="4.5.28" />
+    <PackageReference Include="Moq" Version="4.7.145" />
     <PackageReference Include="Should" Version="1.1.20" />
     <PackageReference Include="structuremap.automocking.moq" Version="4.0.0.315" />
     <PackageReference Include="xunit" Version="2.3.1" />
