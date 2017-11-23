@@ -36,10 +36,4 @@ namespace SoundsUp.Business
             return await _repository.Register(entity, salt);
         }
     }
-
-    public interface IValidator
-
-    {
-        bool ValidateId(int id);
-    }
 }
