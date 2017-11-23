@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SoundsUp.Business\SoundsUp.Business.csproj" />
     <ProjectReference Include="..\SoundsUp.CrossCutting.Testing\SoundsUp.CrossCutting.Testing.csproj" />
+    <ProjectReference Include="..\SoundsUp.Domain\SoundsUp.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

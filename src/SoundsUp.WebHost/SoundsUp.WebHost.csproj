@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\..\..\..\.nuget\packages\structuremap.automocking.moq\4.0.0.315\lib\net40\StructureMap.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\SoundsUp.Business\SoundsUp.Business.csproj" />
+    <ProjectReference Include="..\SoundsUp.Data\SoundsUp.Data.csproj" />
+    <ProjectReference Include="..\SoundsUp.Domain\SoundsUp.Domain.csproj" />
   </ItemGroup>
 
 </Project>
