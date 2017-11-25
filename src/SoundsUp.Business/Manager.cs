@@ -24,12 +24,14 @@ namespace SoundsUp.Business
 
         public async Task<bool> Login(Login entity)
         {
+            //TODO: Hash the password here
+
             return await _repository.Login(entity);
         }
 
         public async Task<int> Register(Register entity)
         {
-            //Hash the password here
+            //TODO: Hash the password here
 
             var salt = "Salt";
 

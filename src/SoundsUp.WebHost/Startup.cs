@@ -46,6 +46,12 @@ namespace SoundsUp.WebHost
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+
             app.UseMvc();
         }
     }
