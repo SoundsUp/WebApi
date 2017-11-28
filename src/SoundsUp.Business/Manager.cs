@@ -22,20 +22,25 @@ namespace SoundsUp.Business
             return await _repository.Get(id);
         }
 
-        public async Task<bool> Login(Login entity)
+        public async Task<int?> Login(Login entity)
         {
             //TODO: Hash the password here
 
             return await _repository.Login(entity);
         }
 
-        public async Task<int> Register(Register entity)
+        public async Task<int?> Register(Register entity)
         {
             //TODO: Hash the password here
 
             var salt = "Salt";
 
             return await _repository.Register(entity, salt);
+        }
+
+        public async Task<bool> Update(int id, EditViewModel view)
+        {
+            return await _repository.Update(id, view);
         }
     }
 }

@@ -5,10 +5,12 @@ namespace SoundsUp.Domain.Contracts
 {
     public interface IRepository
     {
-        Task<bool> Login(Login entity);
+        Task<int?> Login(Login entity);
 
         Task<Account> Get(int id);
 
-        Task<int> Register(Register entity, string salt);
+        Task<int?> Register(Register entity, string salt);
+
+        Task<bool> Update(int id, EditViewModel view);
     }
 }

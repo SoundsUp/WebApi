@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SoundsUp.Business;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoundsUp.WebHost.Controllers
@@ -16,14 +17,8 @@ namespace SoundsUp.WebHost.Controllers
             _manager = manager;
         }
 
-        // GET api/users
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/users/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
@@ -42,28 +37,48 @@ namespace SoundsUp.WebHost.Controllers
             return Ok(users);
         }
 
-        // POST api/users/login
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody]Login entity)
+        // GET api/users/current
+        [Authorize]
+        [HttpGet("current")]
+        public async Task<IActionResult> Get()
         {
-            if (ModelState.IsValid)
+            var parsed = int.TryParse(HttpContext.User.Claims.First().Value, out var id);
+
+            if (parsed == false)
             {
-                return Ok(await _manager.Login(entity));
+                return NotFound();
             }
 
-            return BadRequest(ModelState);
+            var users = await _manager.Get(id);
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
         }
 
-        // POST api/users/Register
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]Register entity)
+        // GET api/users/current
+        [Authorize]
+        [HttpPost("current")]
+        public async Task<IActionResult> Edit([FromBody] EditViewModel view)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return Ok(await _manager.Register(entity));
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            var parsed = int.TryParse(HttpContext.User.Claims.First().Value, out var id);
+
+            if (parsed == false)
+            {
+                return NotFound();
+            }
+
+            var users = await _manager.Update(id, view);
+
+            return Ok(users);
         }
 
         // PUT api/users/5
