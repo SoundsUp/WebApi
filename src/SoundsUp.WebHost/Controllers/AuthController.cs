@@ -20,8 +20,8 @@ namespace SoundsUp.WebHost.Controllers
             _manager = manager;
         }
 
-        // POST api/users/login
-        [HttpPost("Login")]
+        // POST api/auth/login
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]Login entity)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -35,8 +35,8 @@ namespace SoundsUp.WebHost.Controllers
             return Ok(new { Token = encodedJwt });
         }
 
-        // POST api/users/Register
-        [HttpPost("Register")]
+        // POST api/auth/Register
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel entity)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
