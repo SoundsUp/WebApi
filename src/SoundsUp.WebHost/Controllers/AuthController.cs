@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,15 +40,15 @@ namespace SoundsUp.WebHost.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel entity)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(new Response { ErrorMessage = JsonConvert.SerializeObject(ModelState) });
 
             var id = await _manager.Register(entity);
 
-            if (id == null) return BadRequest(new { errorMessage = "Problem with registering" });
+            if (id == null) return BadRequest(new Response { ErrorMessage = "Problem with registering" });
 
             var encodedJwt = CreateToken(id.ToString());
 
-            return Ok(new { Token = encodedJwt, registedUserId = id });
+            return Ok(new Response { Result = JsonConvert.SerializeObject(new { Token = encodedJwt, registedUserId = id }) });
         }
 
         private static string CreateToken(string id)
