@@ -62,7 +62,7 @@ namespace SoundsUp.WebHost.Controllers
 
         // POST api/messages/Register
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]Register entity)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel entity)
         {
             if (ModelState.IsValid)
             {

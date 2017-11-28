@@ -29,7 +29,7 @@ namespace SoundsUp.Business
             return await _repository.Login(entity);
         }
 
-        public async Task<int?> Register(Register entity)
+        public async Task<int?> Register(RegisterViewModel entity)
         {
             //TODO: Hash the password here
 

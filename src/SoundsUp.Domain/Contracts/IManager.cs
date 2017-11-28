@@ -9,7 +9,7 @@ namespace SoundsUp.Domain.Contracts
 
         Task<Account> Get(int id);
 
-        Task<int?> Register(Register entity);
+        Task<int?> Register(RegisterViewModel entity);
 
         Task<bool> Update(int id, EditViewModel view);
     }

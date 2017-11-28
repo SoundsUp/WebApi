@@ -1,6 +1,6 @@
 ﻿namespace SoundsUp.Domain.Entities
 {
-    public class Register
+    public class RegisterViewModel
     {
         public string Password { get; set; }
         public string Email { get; set; }

@@ -32,7 +32,7 @@ namespace SoundsUp.Data
             return result?.Id;
         }
 
-        public async Task<int?> Register(Register entity, string salt)
+        public async Task<int?> Register(RegisterViewModel entity, string salt)
         {
             var user = new Users
             {
