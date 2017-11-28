@@ -59,9 +59,9 @@ namespace SoundsUp.WebHost.Controllers
             return Ok(users);
         }
 
-        // GET api/users/current
+        // PUT api/users/current
         [Authorize]
-        [HttpPost("current")]
+        [HttpPut("current")]
         public async Task<IActionResult> Edit([FromBody] EditViewModel view)
         {
             if (!ModelState.IsValid)
