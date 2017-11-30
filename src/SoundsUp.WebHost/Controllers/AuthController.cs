@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SoundsUp.WebHost.Controllers
 {
     [Produces("application/json")]
-    [Route("auth")]
+    [Route("[controller]")]
     public class AuthController : Controller
     {
         private readonly IManager _manager;
@@ -20,7 +20,7 @@ namespace SoundsUp.WebHost.Controllers
             _manager = manager;
         }
 
-        // POST api/auth/login
+        // POST auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]Login entity)
         {
@@ -35,7 +35,7 @@ namespace SoundsUp.WebHost.Controllers
             return Ok(new { Token = encodedJwt });
         }
 
-        // POST api/auth/Register
+        // POST auth/Register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel entity)
         {
@@ -53,7 +53,8 @@ namespace SoundsUp.WebHost.Controllers
         private static string CreateToken(string id)
         {
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the Secret phrase"));
-            var signingCreditenals = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+
+            var signingCreditenals = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256); // TODO Security here, find the best algorithm, expire token etc
 
             var claims = new[]
             {

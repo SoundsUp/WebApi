@@ -6,10 +6,14 @@ namespace SoundsUp.WebHost.IoC
     {
         public RuntimeRegistry()
         {
-            Scan(x =>
+            // Choose configuration options for the assembly
+            Scan(assembly =>
             {
-                x.AssembliesAndExecutablesFromApplicationBaseDirectory();
-                x.WithDefaultConventions();
+                // 
+                assembly.AssembliesAndExecutablesFromApplicationBaseDirectory();
+
+                // Examples: IName for interface 
+                assembly.WithDefaultConventions();
             });
 
             //For<ILogger<CustomerManager>>().Singleton().Use<Logger<CustomerManager>>();

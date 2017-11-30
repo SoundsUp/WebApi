@@ -33,10 +33,12 @@ namespace SoundsUp.WebHost
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(cfg =>
             {
+                // TODO Security here
                 cfg.RequireHttpsMetadata = false;
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
                 {
+                    // TODO Token expiration here :)
                     IssuerSigningKey = signingKey,
                     ValidateAudience = false,
                     ValidateIssuer = false,
@@ -53,6 +55,11 @@ namespace SoundsUp.WebHost
             return ConfigureIoC(services);
         }
 
+        /**
+         * Configure using Inversion of Control pattern.
+         * This method configures the automatic mapping for dependency injection. 
+         * Map between the injected classes and their interfaces.
+         */
         public IServiceProvider ConfigureIoC(IServiceCollection services)
         {
             var container = new Container(new RuntimeRegistry());
