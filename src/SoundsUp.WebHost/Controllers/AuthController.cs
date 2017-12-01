@@ -13,9 +13,9 @@ namespace SoundsUp.WebHost.Controllers
     [Route("auth")]
     public class AuthController : Controller
     {
-        private readonly IManager _manager;
+        private readonly IAuthManager _manager;
 
-        public AuthController(IManager manager)
+        public AuthController(IAuthManager manager)
         {
             _manager = manager;
         }
@@ -26,13 +26,13 @@ namespace SoundsUp.WebHost.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var id = await _manager.Login(entity);
+            var account = await _manager.Login(entity);
 
-            if (id == null) return NotFound(new { errorMessage = "Incorrect password or username" });
+            if (account == null) return NotFound(new { errorMessage = "Incorrect password or username" });
 
-            var encodedJwt = CreateToken(id.ToString());
+            var encodedJwt = CreateToken(account.Id.ToString());
 
-            return Ok(new { Token = encodedJwt });
+            return Ok(new { Token = encodedJwt, Account = account });
         }
 
         // POST api/users/Register
@@ -41,13 +41,13 @@ namespace SoundsUp.WebHost.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var id = await _manager.Register(entity);
+            var account = await _manager.Register(entity);
 
-            if (id == null) return BadRequest(new { errorMessage = "Problem with registering" });
+            if (account == null) return BadRequest(new { errorMessage = "Problem with registering" });
 
-            var encodedJwt = CreateToken(id.ToString());
+            var encodedJwt = CreateToken(account.Id.ToString());
 
-            return Ok(new { Token = encodedJwt, registedUserId = id });
+            return Ok(new { Token = encodedJwt, Account = account });
         }
 
         private static string CreateToken(string id)

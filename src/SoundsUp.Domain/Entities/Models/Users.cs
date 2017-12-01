@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace SoundsUp.Data.Models
+namespace SoundsUp.Domain.Entities.Models
 {
     public partial class Users
     {

@@ -18,6 +18,13 @@ namespace SoundsUp.WebHost.Controllers
         }
 
         // GET api/users/5
+        [HttpGet("test")]
+        public async Task<IActionResult> GetTest()
+        {
+            return Ok(new { Values = "values1" });
+        }
+
+        // GET api/users/5
         [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)

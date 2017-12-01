@@ -1,4 +1,4 @@
-﻿namespace SoundsUp.Business
+﻿namespace SoundsUp.Domain.Contracts
 {
     public interface IValidator
 

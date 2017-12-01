@@ -1,4 +1,6 @@
-﻿namespace SoundsUp.Business
+﻿using SoundsUp.Domain.Contracts;
+
+namespace SoundsUp.Business
 {
     public class Validator : IValidator
     {

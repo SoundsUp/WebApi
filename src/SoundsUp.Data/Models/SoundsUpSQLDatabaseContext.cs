@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SoundsUp.Domain.Entities.Models;
 
 namespace SoundsUp.Data.Models
 {

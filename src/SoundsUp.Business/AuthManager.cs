@@ -4,22 +4,15 @@ using System.Threading.Tasks;
 
 namespace SoundsUp.Business
 {
-    public class Manager : IManager
+    public class AuthManager : IAuthManager
     {
-        private readonly IRepository _repository;
+        private readonly IAuthRepository _repository;
         private readonly IValidator _validator;
 
-        public Manager(IRepository repository, IValidator validator)
+        public AuthManager(IAuthRepository repository, IValidator validator)
         {
             _repository = repository;
             _validator = validator;
-        }
-
-        public async Task<Account> Get(int id)
-        {
-            if (!_validator.ValidateId(id))
-                return null;
-            return await _repository.Get(id);
         }
 
         public async Task<Account> Login(Login entity)
@@ -60,11 +53,6 @@ namespace SoundsUp.Business
                 Description = result.Description,
                 DisplayName = result.DisplayName
             };
-        }
-
-        public async Task<bool> Update(int id, EditViewModel view)
-        {
-            return await _repository.Update(id, view);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
-using SoundsUp.Domain.Entities;
-using System.Collections.Generic;
+using SoundsUp.Domain.Entities.Models;
 using System.Threading.Tasks;
 
 namespace SoundsUp.WebHost.Controllers
@@ -20,34 +18,8 @@ namespace SoundsUp.WebHost.Controllers
             _context = context;
         }
 
-        // GET api/messages
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/messages/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var messages = await _context.Messages.ToListAsync();
-
-            if (messages == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(messages);
-        }
-
-        // POST api/messages/login
-        [HttpPost("Login")]
+        // POST api/messages
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody]Messages entity)
         {
             if (ModelState.IsValid)
@@ -58,30 +30,6 @@ namespace SoundsUp.WebHost.Controllers
             }
 
             return BadRequest(ModelState);
-        }
-
-        // POST api/messages/Register
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]RegisterViewModel entity)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok(await _manager.Register(entity));
-            }
-
-            return BadRequest(ModelState);
-        }
-
-        // PUT api/messages/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/messages/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
