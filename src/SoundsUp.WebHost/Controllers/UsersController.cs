@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
@@ -37,28 +38,6 @@ namespace SoundsUp.WebHost.Controllers
             return Ok(users);
         }
 
-        // GET api/users/current
-        [Authorize]
-        [HttpGet("current")]
-        public async Task<IActionResult> Get()
-        {
-            var parsed = int.TryParse(HttpContext.User.Claims.First().Value, out var id);
-
-            if (parsed == false)
-            {
-                return NotFound();
-            }
-
-            var users = await _manager.Get(id);
-
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(users);
-        }
-
         // PUT api/users/current
         [Authorize]
         [HttpPut("current")]
@@ -69,7 +48,8 @@ namespace SoundsUp.WebHost.Controllers
                 return BadRequest(ModelState);
             }
 
-            var parsed = int.TryParse(HttpContext.User.Claims.First().Value, out var id);
+            // TODO Figure out how to get a specific claim
+            var parsed = int.TryParse(HttpContext.User.Claims.First(C => C.Type == JwtRegisteredClaimNames.Sub).Value, out var id);
 
             if (parsed == false)
             {
