@@ -34,7 +34,7 @@ namespace SoundsUp.WebHost.Controllers
 
             Token token = credentials.DoAuth();
 
-            return Ok(token);
+            return Ok(new {Token = token});
         }
     }
 }
