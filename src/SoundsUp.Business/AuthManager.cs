@@ -22,7 +22,7 @@ namespace SoundsUp.Business
         {
             var user = await _repository.Get<Users>(u => u.Email == entity.Email);
 
-            if (user == null || _authenticator.Verify(entity.Password, user.Password)) return null;
+            if (user == null || !_authenticator.Verify(entity.Password, user.Password)) return null;
 
             var account = ModelUserToAccount(user);
 
