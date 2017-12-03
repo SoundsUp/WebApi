@@ -20,7 +20,7 @@ namespace SoundsUp.Business.UnitTests
             await Instance.Get(id);
 
             // Assert
-            GetMockFor<IRepository>().Verify(r => r.Get(id), Times.Once);
+            GetMockFor<IUserRepository>().Verify(r => r.Get(id), Times.Once);
         }
     }
 }

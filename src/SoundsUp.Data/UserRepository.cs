@@ -2,17 +2,16 @@
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
-using SoundsUp.Domain.Entities.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoundsUp.Data
 {
-    public class Repository : IRepository
+    public class UserRepository : IUserRepository
     {
         private readonly SoundsUpSQLDatabaseContext _context;
 
-        public Repository(SoundsUpSQLDatabaseContext context)
+        public UserRepository(SoundsUpSQLDatabaseContext context)
         {
             _context = context;
         }
@@ -25,31 +24,6 @@ namespace SoundsUp.Data
                 return null;
 
             return new Account { Id = user.Id, Email = user.Email, Description = user.Description, Avatar = user.Avatar, DisplayName = user.DisplayName };
-        }
-
-        public async Task<Users> Login(Login entity)
-        {
-            var result = await _context.Users.FirstOrDefaultAsync(u => u.Email == entity.Email && u.Password == entity.Password);
-
-            return result;
-        }
-
-        public async Task<Users> Register(RegisterViewModel entity, string salt)
-        {
-            var user = new Users
-            {
-                Avatar = entity.Avatar,
-                Description = entity.Description,
-                DisplayName = entity.DisplayName,
-                Email = entity.Email,
-                Password = entity.Password,
-                Salt = salt
-            };
-
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
-            return user;
         }
 
         public async Task<bool> Update(int id, EditViewModel view)

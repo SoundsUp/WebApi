@@ -3,6 +3,8 @@ using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
 using SoundsUp.Domain.Entities.Models;
+using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SoundsUp.Data
@@ -23,7 +25,7 @@ namespace SoundsUp.Data
             return result;
         }
 
-        public async Task<Users> Register(RegisterViewModel entity, string salt)
+        public async Task<Users> Register(RegisterViewModel entity)
         {
             var user = new Users
             {
@@ -31,14 +33,22 @@ namespace SoundsUp.Data
                 Description = entity.Description,
                 DisplayName = entity.DisplayName,
                 Email = entity.Email,
-                Password = entity.Password,
-                Salt = salt
+                Password = entity.Password
             };
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        public virtual async Task<T> Get<T>(Expression<Func<T, bool>> where) where T : class
+        {
+            var result = await _context.Set<T>()
+                .AsNoTracking() //Don't track any changes for the selected item
+                .FirstOrDefaultAsync(where);
+
+            return result;
         }
     }
 }

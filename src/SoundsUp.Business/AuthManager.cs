@@ -1,5 +1,6 @@
 ﻿using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
+using SoundsUp.Domain.Entities.Models;
 using System.Threading.Tasks;
 
 namespace SoundsUp.Business
@@ -8,33 +9,33 @@ namespace SoundsUp.Business
     {
         private readonly IAuthRepository _repository;
         private readonly IValidator _validator;
+        private readonly IAuthenticator _authenticator;
 
-        public AuthManager(IAuthRepository repository, IValidator validator)
+        public AuthManager(IAuthRepository repository, IValidator validator, IAuthenticator authenticator)
         {
             _repository = repository;
             _validator = validator;
+            _authenticator = authenticator;
         }
 
         public async Task<Account> Login(Login entity)
         {
-            //TODO: Hash the password here
+            var user = await _repository.Get<Users>(u => u.Email == entity.Email);
 
-            var result = await _repository.Login(entity);
+            if (user == null || _authenticator.Verify(entity.Password, user.Password)) return null;
 
-            if (result == null) return null;
-
-            var account = ModelUserToAccount(result);
+            var account = ModelUserToAccount(user);
 
             return account;
         }
 
         public async Task<Account> Register(RegisterViewModel entity)
         {
-            //TODO: Hash the password here
+            //TODO: Add validation
 
-            var salt = "Salt";
+            entity.Password = _authenticator.HashPassword(entity.Password);
 
-            var result = await _repository.Register(entity, salt);
+            var result = await _repository.Register(entity);
 
             if (result == null) return null;
 
