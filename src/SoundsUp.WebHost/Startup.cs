@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +49,11 @@ namespace SoundsUp.WebHost
                 };
             });
 
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
+
             services.AddMvc();
 
             var connection = @"Server=tcp:projectnorth.database.windows.net,1433;Initial Catalog=SoundsUpSQLDatabase;Persist Security Info=False;User ID=RootAdmin;Password=DatabaseIsAwesome1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
@@ -57,9 +64,10 @@ namespace SoundsUp.WebHost
 
         /**
          * Configure using Inversion of Control pattern.
-         * This method configures the automatic mapping for dependency injection. 
+         * This method configures the automatic mapping for dependency injection.
          * Map between the injected classes and their interfaces.
          */
+
         public IServiceProvider ConfigureIoC(IServiceCollection services)
         {
             var container = new Container(new RuntimeRegistry());
@@ -75,6 +83,11 @@ namespace SoundsUp.WebHost
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var options = new RewriteOptions()
+                .AddRedirectToHttps();
+
+            app.UseRewriter(options);
 
             app.UseCors(builder => builder
                     .AllowAnyOrigin()
