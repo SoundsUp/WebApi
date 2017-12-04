@@ -1,17 +1,20 @@
-﻿namespace SoundsUp.Business
+﻿using Sodium;
+using SoundsUp.Domain.Contracts;
+
+namespace SoundsUp.Business
 {
     public class Authenticator : IAuthenticator
     {
-        //https://github.com/BcryptNet/bcrypt.net
-        public bool Verify(string password, string passwordHash)
+        //https://github.com/tabrath/libsodium-core
+        public bool Verify(string password, string hash)
         {
-            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+            return PasswordHash.ScryptHashStringVerify(hash, password);
         }
 
         public string HashPassword(string password)
         {
             // hash and save a password
-            return BCrypt.Net.BCrypt.HashPassword(password);
+            return PasswordHash.ScryptHashString(password);
         }
     }
 }
