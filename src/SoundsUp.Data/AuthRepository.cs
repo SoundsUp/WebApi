@@ -25,17 +25,8 @@ namespace SoundsUp.Data
             return result;
         }
 
-        public async Task<Users> Register(RegisterViewModel entity)
+        public async Task<Users> Register(Users user)
         {
-            var user = new Users
-            {
-                Avatar = entity.Avatar,
-                Description = entity.Description,
-                DisplayName = entity.DisplayName,
-                Email = entity.Email,
-                Password = entity.Password
-            };
-
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 

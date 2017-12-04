@@ -32,16 +32,31 @@ namespace SoundsUp.Business
         public async Task<Account> Register(RegisterViewModel entity)
         {
             //TODO: Add validation
+            if (entity == null) return null;
 
             entity.Password = _authenticator.HashPassword(entity.Password);
 
-            var result = await _repository.Register(entity);
+            var user = ModelRegisterViewToUser(entity);
+
+            var result = await _repository.Register(user);
 
             if (result == null) return null;
 
             var account = ModelUserToAccount(result);
 
             return account;
+        }
+
+        private static Users ModelRegisterViewToUser(RegisterViewModel entity)
+        {
+            return new Users
+            {
+                Avatar = entity.Avatar,
+                Description = entity.Description,
+                DisplayName = entity.DisplayName,
+                Email = entity.Email,
+                Password = entity.Password
+            };
         }
 
         private static Account ModelUserToAccount(Domain.Entities.Models.Users result)

@@ -14,7 +14,7 @@ namespace SoundsUp.Business.UnitTests
             //Arrange
             GetMockFor<IValidator>().Setup(v => v.ValidateId(It.IsAny<int>())).Returns(true);
 
-            var id = 1;
+            const int id = 1;
 
             // Act
             await Instance.Get(id);
