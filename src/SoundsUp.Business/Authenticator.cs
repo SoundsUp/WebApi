@@ -14,7 +14,7 @@ namespace SoundsUp.Business
         public string HashPassword(string password)
         {
             // hash and save a password
-            return PasswordHash.ScryptHashString(password);
+            return PasswordHash.ScryptHashString(password, PasswordHash.Strength.Medium);
         }
     }
 }
