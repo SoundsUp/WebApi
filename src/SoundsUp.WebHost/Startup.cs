@@ -1,6 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+
+#if !DEBUG
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
+#endif
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +52,7 @@ namespace SoundsUp.WebHost
                     ValidateIssuerSigningKey = true,
                 };
             });
-#if Release
+#if !DEBUG
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
@@ -82,7 +88,7 @@ namespace SoundsUp.WebHost
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-#if Release
+#if !DEBUG
                 var options = new RewriteOptions()
                     .AddRedirectToHttps();
 
