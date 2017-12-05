@@ -6,12 +6,12 @@ namespace SoundsUp.Business
 {
     public class Manager : IManager
     {
-        private readonly IRepository _repository;
+        private readonly IUserRepository _userRepository;
         private readonly IValidator _validator;
 
-        public Manager(IRepository repository, IValidator validator)
+        public Manager(IUserRepository userRepository, IValidator validator)
         {
-            _repository = repository;
+            _userRepository = userRepository;
             _validator = validator;
         }
 
@@ -19,35 +19,7 @@ namespace SoundsUp.Business
         {
             if (!_validator.ValidateId(id))
                 return null;
-            return await _repository.Get(id);
-        }
-
-        public async Task<Account> Login(Login entity)
-        {
-            //TODO: Hash the password here
-
-            var result = await _repository.Login(entity);
-
-            if (result == null) return null;
-
-            var account = ModelUserToAccount(result);
-
-            return account;
-        }
-
-        public async Task<Account> Register(RegisterViewModel entity)
-        {
-            //TODO: Hash the password here
-
-            var salt = "Salt";
-
-            var result = await _repository.Register(entity, salt);
-
-            if (result == null) return null;
-
-            var account = ModelUserToAccount(result);
-
-            return account;
+            return await _userRepository.Get(id);
         }
 
         private static Account ModelUserToAccount(Domain.Entities.Models.Users result)
@@ -64,7 +36,7 @@ namespace SoundsUp.Business
 
         public async Task<bool> Update(int id, EditViewModel view)
         {
-            return await _repository.Update(id, view);
+            return await _userRepository.Update(id, view);
         }
     }
 }

@@ -180,11 +180,6 @@ namespace SoundsUp.Data.Models
                     .IsRequired()
                     .HasColumnName("password")
                     .HasMaxLength(255);
-
-                entity.Property(e => e.Salt)
-                    .IsRequired()
-                    .HasColumnName("salt")
-                    .HasMaxLength(255);
             });
         }
     }
