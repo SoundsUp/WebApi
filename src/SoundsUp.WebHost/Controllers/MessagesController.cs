@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
+using SoundsUp.Domain.Entities;
 using SoundsUp.Domain.Entities.Models;
 using System.Threading.Tasks;
 
@@ -9,23 +11,25 @@ namespace SoundsUp.WebHost.Controllers
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
-        private readonly IManager _manager;
-        private readonly SoundsUpSQLDatabaseContext _context;
+        private readonly IMessagesManager _manager;
 
-        public MessagesController(IManager manager, SoundsUpSQLDatabaseContext context)
+        public MessagesController(IMessagesManager manager)
         {
             _manager = manager;
-            _context = context;
         }
 
         // POST api/messages
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Messages entity)
+        [Authorize]
+        public async Task<IActionResult> Post([FromBody]MessageViewModel entity)
         {
             if (ModelState.IsValid)
             {
-                var messages = await _context.Messages.AddAsync(entity);
-                await _context.SaveChangesAsync();
+                var messages = await _manager.Create(entity);
+                if (messages == null)
+                {
+                    return BadRequest();
+                }
                 return Ok(messages);
             }
 
