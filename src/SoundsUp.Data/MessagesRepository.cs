@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
@@ -30,6 +32,20 @@ namespace SoundsUp.Data
             await _context.SaveChangesAsync();
 
             return message;
+        }
+
+        public async Task<IEnumerable<Messages>> GetConversation(ConversationViewModel conversation)
+        {
+            var messages = await _context.Messages.Where(message =>
+
+                (message.UserTo.Equals(conversation.UserConversation) 
+                    && message.UserFrom.Equals(conversation.UserAuthorized))
+                || (message.UserTo.Equals(conversation.UserAuthorized) 
+                    && message.UserFrom.Equals(conversation.UserConversation))
+
+            ).ToListAsync();
+
+            return messages;
         }
     }
    

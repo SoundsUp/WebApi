@@ -1,11 +1,12 @@
-﻿using SoundsUp.Domain.Contracts;
+﻿using System.Collections.Generic;
+using SoundsUp.Domain.Contracts;
 using System.Threading.Tasks;
 using SoundsUp.Domain.Entities;
 using SoundsUp.Domain.Entities.Models;
 
 namespace SoundsUp.Business
 {
-    class MessagesManager : IMessagesManager
+    public class MessagesManager : IMessagesManager
     {
 
         private readonly IMessagesRepository _repository;
@@ -20,6 +21,11 @@ namespace SoundsUp.Business
         public Task<Messages> Create(MessageViewModel entity)
         {
             return _repository.Create(entity);
+        }
+
+        public Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
+        {
+            return _repository.GetConversation(conversation);
         }
     }
 }

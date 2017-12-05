@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
@@ -34,6 +37,36 @@ namespace SoundsUp.WebHost.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetMessages([FromQuery]string userConversation)
+        {
+
+           
+           if (ModelState.IsValid)
+            {
+                
+                var userAuthorized = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
+                var conversation = new ConversationViewModel
+                {
+                    UserAuthorized = Convert.ToInt32(userAuthorized),
+                    UserConversation = Convert.ToInt32(userConversation)
+                };
+
+                /* var messages = await _manager.Get(conversation);
+                 // if(messages == null)
+                  //{
+                      return BadRequest();
+                  }
+                  return Ok(messages); */
+
+                return Ok(conversation);
+            }
+
+            return BadRequest(ModelState);
+
         }
     }
 }
