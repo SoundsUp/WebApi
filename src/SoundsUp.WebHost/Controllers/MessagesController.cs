@@ -41,28 +41,26 @@ namespace SoundsUp.WebHost.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetMessages([FromQuery]string userConversation)
+        public async Task<IActionResult> GetMessages([FromQuery]string userConversation)
         {
 
            
            if (ModelState.IsValid)
             {
                 
-                var userAuthorized = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
+                var userAuthorized = HttpContext.User.Claims.First().Value;
                 var conversation = new ConversationViewModel
                 {
                     UserAuthorized = Convert.ToInt32(userAuthorized),
                     UserConversation = Convert.ToInt32(userConversation)
                 };
 
-                /* var messages = await _manager.Get(conversation);
-                 // if(messages == null)
-                  //{
-                      return BadRequest();
-                  }
-                  return Ok(messages); */
-
-                return Ok(conversation);
+                var messages = await _manager.Get(conversation);
+                if(messages == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(messages); 
             }
 
             return BadRequest(ModelState);

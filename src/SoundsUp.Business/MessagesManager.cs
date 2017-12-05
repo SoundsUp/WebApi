@@ -18,14 +18,14 @@ namespace SoundsUp.Business
             _validator = validator;
         }
 
-        public Task<Messages> Create(MessageViewModel entity)
+        public async Task<Messages> Create(MessageViewModel entity)
         {
-            return _repository.Create(entity);
+            return await _repository.Create(entity);
         }
 
-        public Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
+        public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
         {
-            return _repository.GetConversation(conversation);
+            return await _repository.GetConversation(conversation);
         }
     }
 }
