@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,15 +46,17 @@ namespace SoundsUp.WebHost
                     ValidateIssuerSigningKey = true,
                 };
             });
-
+#if Release
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
+#endif
+
             services.AddMvc();
 
-            var connection = @"Server=tcp:projectnorth.database.windows.net,1433;Initial Catalog=SoundsUpSQLDatabase;Persist Security Info=False;User ID=RootAdmin;Password=DatabaseIsAwesome1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var connection = @"Server=tcp:projectnorth.database.windows.net,1433;Initial Catalog=SoundsUpSQLDatabase;Persist Security Info=False;User ID=RootAdmin;Password=DatabaseIsAwesome1;MultipleActiveResultSets=False;Encrypt=True; Column Encryption Setting=Enabled;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<SoundsUpSQLDatabaseContext>(options => options.UseSqlServer(connection));
 
             return ConfigureIoC(services);
@@ -82,13 +82,13 @@ namespace SoundsUp.WebHost
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+#if Release
+                var options = new RewriteOptions()
+                    .AddRedirectToHttps();
+
+                app.UseRewriter(options);
+#endif
             }
-
-            var options = new RewriteOptions()
-                .AddRedirectToHttps();
-
-            app.UseRewriter(options);
-
             app.UseCors(builder => builder
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
