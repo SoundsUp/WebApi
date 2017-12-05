@@ -62,7 +62,7 @@ namespace SoundsUp.WebHost
 
             services.AddMvc();
 
-            var connection = @"Server=tcp:projectnorth.database.windows.net,1433;Initial Catalog=SoundsUpSQLDatabase;Persist Security Info=False;User ID=RootAdmin;Password=DatabaseIsAwesome1;MultipleActiveResultSets=False;Encrypt=True; Column Encryption Setting=Enabled;TrustServerCertificate=False;Connection Timeout=30;";
+            var connection = @"Server=tcp:projectnorth.database.windows.net,1433;Initial Catalog=SoundsUpSQLDatabase;Persist Security Info=False;User ID=RootAdmin;Password=DatabaseIsAwesome1;MultipleActiveResultSets=False;Encrypt=True; TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<SoundsUpSQLDatabaseContext>(options => options.UseSqlServer(connection));
 
             return ConfigureIoC(services);
