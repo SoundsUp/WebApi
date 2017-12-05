@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
-using SoundsUp.Domain.Entities;
 using SoundsUp.Domain.Entities.Models;
 using System;
 using System.Linq.Expressions;
@@ -16,13 +15,6 @@ namespace SoundsUp.Data
         public AuthRepository(SoundsUpSQLDatabaseContext context)
         {
             _context = context;
-        }
-
-        public async Task<Users> Login(Login entity)
-        {
-            var result = await _context.Users.FirstOrDefaultAsync(u => u.Email == entity.Email && u.Password == entity.Password);
-
-            return result;
         }
 
         public async Task<Users> Register(Users user)

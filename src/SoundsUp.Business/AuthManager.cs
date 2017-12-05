@@ -59,7 +59,7 @@ namespace SoundsUp.Business
             };
         }
 
-        private static Account ModelUserToAccount(Domain.Entities.Models.Users result)
+        private static Account ModelUserToAccount(Users result)
         {
             return new Account
             {
