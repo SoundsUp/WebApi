@@ -23,8 +23,6 @@ namespace SoundsUp.Data
             var message = new Messages
             {
                 MsgContent = entity.MsgContent,
-                // TODO transformations 
-                TimeStamp = entity.Time,
                 UserTo = entity.UserTo,
                 UserFrom = entity.UserFrom
             };
