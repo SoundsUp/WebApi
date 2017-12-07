@@ -34,6 +34,10 @@ namespace SoundsUp.Business
             //TODO: Add validation
             if (entity == null) return null;
 
+            var existingUser = await _repository.Get<Users>(u => u.Email == entity.Email);
+
+            if (existingUser != null) return null;
+
             entity.Password = _authenticator.HashPassword(entity.Password);
 
             var user = ModelRegisterViewToUser(entity);
