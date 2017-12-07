@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 Presentation Layer", "10 Presentation Layer", "{9FE6CBDD-6525-4CF3-8968-C2B5B9F4E13C}"
 EndProject
@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundsUp.Data", "SoundsUp.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundsUp.CrossCutting.Testing", "SoundsUp.CrossCutting.Testing\SoundsUp.CrossCutting.Testing.csproj", "{83FA5D46-ECF4-462D-9FFD-465A7446D2A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundsUp.Business.UnitTests", "SoundsUp.Business.UnitTests\SoundsUp.Business.UnitTests.csproj", "{211C44FB-08B2-40FB-966D-83E2BC65B7BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundsUp.Business.UnitTests", "SoundsUp.Business.UnitTests\SoundsUp.Business.UnitTests.csproj", "{211C44FB-08B2-40FB-966D-83E2BC65B7BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundsUp.WebHost", "SoundsUp.WebHost\SoundsUp.WebHost.csproj", "{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundsUp.WebHost", "SoundsUp.WebHost\SoundsUp.WebHost.csproj", "{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundsUp.WebHost.IntergrationTests", "SoundsUp.WebHost.IntergrationTests\SoundsUp.WebHost.IntergrationTests.csproj", "{BE193BE2-672E-48B5-A1B2-803B5469991C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE193BE2-672E-48B5-A1B2-803B5469991C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE193BE2-672E-48B5-A1B2-803B5469991C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE193BE2-672E-48B5-A1B2-803B5469991C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE193BE2-672E-48B5-A1B2-803B5469991C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{83FA5D46-ECF4-462D-9FFD-465A7446D2A6} = {2B1E6490-A7BE-4BB8-8B0A-168B02AE0B4E}
 		{211C44FB-08B2-40FB-966D-83E2BC65B7BC} = {79B5AC30-789C-415E-AEE9-6048ABF61CC6}
 		{B94AE6F4-7AB1-44E9-892C-96BCAD96C1B0} = {9FE6CBDD-6525-4CF3-8968-C2B5B9F4E13C}
+		{BE193BE2-672E-48B5-A1B2-803B5469991C} = {9FE6CBDD-6525-4CF3-8968-C2B5B9F4E13C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D67638F2-9B57-438E-853C-96B9AF0A139E}
