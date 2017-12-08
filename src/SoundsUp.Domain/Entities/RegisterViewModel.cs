@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace SoundsUp.Domain.Entities
 {
     public class RegisterViewModel
