@@ -30,7 +30,7 @@ namespace SoundsUp.WebHost.IntergrationTests
         public async Task<LoginViewModel> Register_ValidParameter_Status200()
         {
             //Arrange
-            var randomString = RandomString(3);
+            var randomString = RandomString(12);
 
             var email = $"{randomString}@{randomString}.com";
             var entity = new RegisterViewModel
@@ -70,6 +70,36 @@ namespace SoundsUp.WebHost.IntergrationTests
             // Assert
             result.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
             JObject.Parse(result.Content).ShouldNotBeNull();
+        }
+
+        [Fact, Trait("Category", "Integration")]
+        public async Task<LoginViewModel> Register_InvalidPassLength_Status400()
+        {
+            //Arrange
+            var randomString = RandomString(3);
+
+            var email = $"{randomString}@{randomString}.com";
+            var entity = new RegisterViewModel
+            {
+                Email = email,
+                Password = randomString,
+                DisplayName = randomString
+            };
+
+            var request = new RestRequest("register", Method.POST);
+            request.AddJsonBody(entity);
+
+            // Act
+            var result = await _restClient.ExecuteTaskAsync(request);
+
+            // Assert
+            result.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
+
+            return new LoginViewModel
+            {
+                Email = email,
+                Password = randomString
+            };
         }
 
         #endregion Register Tests
