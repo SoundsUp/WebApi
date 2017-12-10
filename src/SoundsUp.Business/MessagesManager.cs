@@ -32,7 +32,7 @@ namespace SoundsUp.Business
 
         public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
         {
-            return await _repository.GetConversation(conversation);
+            return await _repository.Get(conversation);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace SoundsUp.Data
             return entity;
         }
 
-        public async Task<IEnumerable<Messages>> GetConversation(ConversationViewModel conversation)
+        public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
         {
             var messages = await _context.Messages
                 .FromSql("EXECUTE [dbo].[GetConversation] " +

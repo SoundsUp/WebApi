@@ -34,7 +34,7 @@ namespace SoundsUp.WebHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessages([FromQuery]int userConversation)
+        public async Task<IActionResult> Get([FromQuery]int userConversation)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
