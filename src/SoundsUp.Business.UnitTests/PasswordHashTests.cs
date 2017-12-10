@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SoundsUp.Business.UnitTests
 {
-    public class PasswordHashTests : TestsFor<PasswordHash>
+    public class PasswordHashingTests : TestsFor<PasswordHash>
     {
         [Fact]
         public void Verify_ValidPassword_ResultIsTrue()
