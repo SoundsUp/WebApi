@@ -8,13 +8,13 @@ namespace SoundsUp.Business
         //https://github.com/tabrath/libsodium-core
         public bool Verify(string password, string hash)
         {
-            return PasswordHash.ArgonHashStringVerify(hash, password);
+            return PasswordHash.ScryptHashStringVerify(hash, password);
         }
 
         public string HashPassword(string password)
         {
             // hash and save a password
-            return PasswordHash.ArgonHashString(password, PasswordHash.StrengthArgon.Interactive);
+            return PasswordHash.ScryptHashString(password, PasswordHash.Strength.Medium);
         }
     }
 }
