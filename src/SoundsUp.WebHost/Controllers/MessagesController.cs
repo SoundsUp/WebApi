@@ -21,7 +21,6 @@ namespace SoundsUp.WebHost.Controllers
 
         // POST api/messages
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Post([FromBody]MessageViewModel entity)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -35,7 +34,6 @@ namespace SoundsUp.WebHost.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetMessages([FromQuery]int userConversation)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

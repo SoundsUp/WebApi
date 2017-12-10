@@ -19,14 +19,14 @@ namespace SoundsUp.WebHost.Controllers
         }
 
         // GET api/users/5
+        [AllowAnonymous]
         [HttpGet("test")]
-        public async Task<IActionResult> GetTest()
+        public IActionResult GetTest()
         {
             return Ok(new { Values = "values1" });
         }
 
         // GET api/users/5
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
@@ -46,7 +46,6 @@ namespace SoundsUp.WebHost.Controllers
         }
 
         // PUT api/users/current
-        [Authorize]
         [HttpPut("current")]
         public async Task<IActionResult> Edit([FromBody] EditViewModel view)
         {
@@ -66,18 +65,6 @@ namespace SoundsUp.WebHost.Controllers
             var users = await _manager.Update(id, view);
 
             return Ok(users);
-        }
-
-        // PUT api/users/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/users/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
