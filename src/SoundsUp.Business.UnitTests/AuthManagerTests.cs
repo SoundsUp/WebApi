@@ -19,11 +19,11 @@ namespace SoundsUp.Business.UnitTests
         public async Task Login_PasswordValid_ReturnsAccount()
         {
             //Arrange
-            GetMockFor<IAuthenticator>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+            GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
 
             // Act
-            var result = await Instance.Login(new Login());
+            var result = await Instance.Login(new LoginViewModel());
 
             // Assert
             result.ShouldNotBeNull();
@@ -33,11 +33,11 @@ namespace SoundsUp.Business.UnitTests
         public async Task Login_PasswordInvalid_Returnsnull()
         {
             //Arrange
-            GetMockFor<IAuthenticator>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
+            GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
             GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
 
             // Act
-            var result = await Instance.Login(new Login());
+            var result = await Instance.Login(new LoginViewModel());
 
             // Assert
             result.ShouldBeNull();
@@ -47,11 +47,11 @@ namespace SoundsUp.Business.UnitTests
         public async Task Login_EmailNotFound_Returnsnull()
         {
             //Arrange
-            GetMockFor<IAuthenticator>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
+            GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
             GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
 
             // Act
-            var result = await Instance.Login(new Login());
+            var result = await Instance.Login(new LoginViewModel());
 
             // Assert
             result.ShouldBeNull();

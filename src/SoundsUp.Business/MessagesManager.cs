@@ -20,7 +20,14 @@ namespace SoundsUp.Business
 
         public async Task<Messages> Create(MessageViewModel entity)
         {
-            return await _repository.Create(entity);
+            var message = new Messages
+            {
+                MsgContent = entity.MsgContent,
+                UserTo = entity.UserTo,
+                UserFrom = entity.UserFrom
+            };
+
+            return await _repository.Create(message);
         }
 
         public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)

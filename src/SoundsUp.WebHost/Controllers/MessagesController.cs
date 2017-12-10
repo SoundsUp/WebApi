@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoundsUp.WebHost.Controllers
 {
     [Route("api/[controller]")]
-    public class MessagesController : Controller
+    public class MessagesController : BaseController
     {
         private readonly IMessagesManager _manager;
 
@@ -35,15 +36,18 @@ namespace SoundsUp.WebHost.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetMessages([FromQuery]string userConversation)
+        public async Task<IActionResult> GetMessages([FromQuery]int userConversation)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var userAuthorized = HttpContext.User.Claims.First().Value;
+            var parsed = GetIdFromClaims(out var id);
+
+            if (!parsed) return Unauthorized();
+
             var conversation = new ConversationViewModel
             {
-                UserAuthorized = Convert.ToInt32(userAuthorized),
-                UserConversation = Convert.ToInt32(userConversation)
+                UserAuthorized = id,
+                UserConversation = userConversation
             };
 
             var messages = await _manager.Get(conversation);

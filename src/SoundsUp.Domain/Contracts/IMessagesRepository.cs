@@ -7,7 +7,7 @@ namespace SoundsUp.Domain.Contracts
 {
     public interface IMessagesRepository
     {
-        Task<Messages> Create(MessageViewModel entity);
+        Task<Messages> Create(Messages entity);
         Task<IEnumerable<Messages>> GetConversation(ConversationViewModel entity);
     }
 }

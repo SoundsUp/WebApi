@@ -5,7 +5,7 @@ namespace SoundsUp.Domain.Contracts
 {
     public interface IAuthManager
     {
-        Task<Account> Login(Login entity);
+        Task<Account> Login(LoginViewModel entity);
 
         Task<Account> Register(RegisterViewModel entity);
     }

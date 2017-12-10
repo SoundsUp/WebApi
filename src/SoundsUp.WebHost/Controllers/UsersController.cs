@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SoundsUp.WebHost.Controllers
 {
     [Route("api/[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private readonly IManager _manager;
 
@@ -55,8 +55,8 @@ namespace SoundsUp.WebHost.Controllers
                 return BadRequest(ModelState);
             }
 
-            // TODO Figure out how to get a specific claim
-            var parsed = int.TryParse(HttpContext.User.Claims.First(C => C.Type == JwtRegisteredClaimNames.Sub).Value, out var id);
+            var parsed = GetIdFromClaims(out var id);
+
 
             if (parsed == false)
             {

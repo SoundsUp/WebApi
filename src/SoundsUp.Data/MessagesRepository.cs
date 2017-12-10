@@ -18,30 +18,21 @@ namespace SoundsUp.Data
             _context = context;
         }
 
-        public async Task<Messages> Create(MessageViewModel entity)
+        public async Task<Messages> Create(Messages entity)
         {
-            var message = new Messages
-            {
-                MsgContent = entity.MsgContent,
-                UserTo = entity.UserTo,
-                UserFrom = entity.UserFrom
-            };
-
-            await _context.Messages.AddAsync(message);
+            await _context.Messages.AddAsync(entity);
             await _context.SaveChangesAsync();
 
-            return message;
+            return entity;
         }
 
         public async Task<IEnumerable<Messages>> GetConversation(ConversationViewModel conversation)
         {
-            var messages = await _context.Messages.Where(message =>
-
-                (message.UserTo.Equals(conversation.UserConversation) 
-                    && message.UserFrom.Equals(conversation.UserAuthorized))
-                || (message.UserTo.Equals(conversation.UserAuthorized) 
-                    && message.UserFrom.Equals(conversation.UserConversation))
-
+            var messages = await _context.Messages.Where(message 
+                => (message.UserTo == conversation.UserConversation
+                && message.UserFrom == conversation.UserAuthorized)
+                || (message.UserTo == conversation.UserAuthorized
+                && message.UserFrom == conversation.UserConversation)
             ).ToListAsync();
 
             return messages;
