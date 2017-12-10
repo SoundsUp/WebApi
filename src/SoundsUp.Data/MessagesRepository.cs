@@ -28,12 +28,12 @@ namespace SoundsUp.Data
 
         public async Task<IEnumerable<Messages>> GetConversation(ConversationViewModel conversation)
         {
-            var messages = await _context.Messages.Where(message 
-                => (message.UserTo == conversation.UserConversation
-                && message.UserFrom == conversation.UserAuthorized)
-                || (message.UserTo == conversation.UserAuthorized
-                && message.UserFrom == conversation.UserConversation)
-            ).ToListAsync();
+            var messages = await _context.Messages
+                .FromSql("EXECUTE [dbo].[GetConversation] " +
+                          "@UserId1 = {0}, " +
+                          "@UserId2 = {1}",
+                    conversation.UserAuthorized, conversation.UserConversation)
+                .ToListAsync();
 
             return messages;
         }
