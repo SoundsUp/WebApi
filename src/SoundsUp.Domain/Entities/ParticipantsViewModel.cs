@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoundsUp.Domain.Entities
+﻿namespace SoundsUp.Domain.Entities
 {
     public class ParticipantsViewModel
     {
