@@ -3,6 +3,7 @@ using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities.Models;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -30,6 +31,16 @@ namespace SoundsUp.Data
             var result = await _context.Set<T>()
                 .AsNoTracking() //Don't track any changes for the selected item
                 .FirstOrDefaultAsync(where);
+
+            return result;
+        }
+
+        public virtual async Task<Users> GetByEmail(string email) 
+        {
+            var result = await _context.Users
+                .FromSql("EXECUTE dbo.GetUserByEmail  {0}", email)
+                .FirstOrDefaultAsync();
+
 
             return result;
         }

@@ -20,7 +20,7 @@ namespace SoundsUp.Business
 
         public async Task<Account> Login(LoginViewModel entity)
         {
-            var user = await _repository.Get<Users>(u => u.Email == entity.Email);
+            var user = await _repository.GetByEmail(entity.Email);
 
             if (user == null || !_passwordHash.Verify(entity.Password, user.Password)) return null;
 
@@ -34,7 +34,7 @@ namespace SoundsUp.Business
             //TODO: Add validation
             if (entity == null) return null;
 
-            var existingUser = await _repository.Get<Users>(u => u.Email == entity.Email);
+            var existingUser = await _repository.GetByEmail(entity.Email);
 
             if (existingUser != null) return null;
 

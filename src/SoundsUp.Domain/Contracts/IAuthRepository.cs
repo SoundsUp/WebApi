@@ -10,5 +10,6 @@ namespace SoundsUp.Domain.Contracts
         Task<Users> Register(Users entity);
 
         Task<T> Get<T>(Expression<Func<T, bool>> where) where T : class;
+        Task<Users> GetByEmail(string email);
     }
 }
