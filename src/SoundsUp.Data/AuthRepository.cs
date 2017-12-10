@@ -25,7 +25,7 @@ namespace SoundsUp.Data
             return user;
         }
 
-        public virtual async Task<T> Get<T>(Expression<Func<T, bool>> where) where T : class
+        public async Task<T> Get<T>(Expression<Func<T, bool>> where) where T : class
         {
             var result = await _context.Set<T>()
                 .AsNoTracking() //Don't track any changes for the selected item
@@ -34,7 +34,7 @@ namespace SoundsUp.Data
             return result;
         }
 
-        public virtual async Task<Users> GetByEmail(string email)
+        public async Task<Users> GetByEmail(string email)
         {
             var result = await _context.Users
                 .FromSql("EXECUTE dbo.GetUserByEmail  {0}", email)
