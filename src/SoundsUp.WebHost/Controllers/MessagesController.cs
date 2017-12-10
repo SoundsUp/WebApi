@@ -42,7 +42,7 @@ namespace SoundsUp.WebHost.Controllers
 
             if (!parsed) return Unauthorized();
 
-            var conversation = new ConversationViewModel
+            var conversation = new ParticipantsViewModel
             {
                 UserAuthorized = id,
                 UserConversation = userConversation

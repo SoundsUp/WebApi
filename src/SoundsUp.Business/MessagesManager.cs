@@ -30,9 +30,9 @@ namespace SoundsUp.Business
             return await _repository.Create(message);
         }
 
-        public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
+        public async Task<IEnumerable<Messages>> Get(ParticipantsViewModel participants)
         {
-            return await _repository.Get(conversation);
+            return await _repository.Get(participants);
         }
     }
 }

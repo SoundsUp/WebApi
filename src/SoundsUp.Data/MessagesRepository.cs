@@ -26,13 +26,13 @@ namespace SoundsUp.Data
             return entity;
         }
 
-        public async Task<IEnumerable<Messages>> Get(ConversationViewModel conversation)
+        public async Task<IEnumerable<Messages>> Get(ParticipantsViewModel participants)
         {
             var messages = await _context.Messages
                 .FromSql("EXECUTE [dbo].[GetConversation] " +
                           "@UserId1 = {0}, " +
                           "@UserId2 = {1}",
-                    conversation.UserAuthorized, conversation.UserConversation)
+                    participants.UserAuthorized, participants.UserConversation)
                 .ToListAsync();
 
             return messages;
