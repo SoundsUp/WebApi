@@ -27,7 +27,7 @@ namespace SoundsUp.WebHost.IntergrationTests
         #region Register Tests
 
         [Fact, Trait("Category", "Integration")]
-        public async Task<Login> Register_ValidParameter_Status200()
+        public async Task<LoginViewModel> Register_ValidParameter_Status200()
         {
             //Arrange
             var randomString = RandomString(3);
@@ -50,7 +50,7 @@ namespace SoundsUp.WebHost.IntergrationTests
             result.StatusCode.ShouldEqual(HttpStatusCode.OK);
             JObject.Parse(result.Content)["token"].ShouldNotBeNull();
 
-            return new Login
+            return new LoginViewModel
             {
                 Email = email,
                 Password = randomString

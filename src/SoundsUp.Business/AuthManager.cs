@@ -9,20 +9,20 @@ namespace SoundsUp.Business
     {
         private readonly IAuthRepository _repository;
         private readonly IValidator _validator;
-        private readonly IAuthenticator _authenticator;
+        private readonly IPasswordHash _passwordHash;
 
-        public AuthManager(IAuthRepository repository, IValidator validator, IAuthenticator authenticator)
+        public AuthManager(IAuthRepository repository, IValidator validator, IPasswordHash passwordHash)
         {
             _repository = repository;
             _validator = validator;
-            _authenticator = authenticator;
+            _passwordHash = passwordHash;
         }
 
-        public async Task<Account> Login(Login entity)
+        public async Task<Account> Login(LoginViewModel entity)
         {
             var user = await _repository.Get<Users>(u => u.Email == entity.Email);
 
-            if (user == null || !_authenticator.Verify(entity.Password, user.Password)) return null;
+            if (user == null || !_passwordHash.Verify(entity.Password, user.Password)) return null;
 
             var account = ModelUserToAccount(user);
 
@@ -38,7 +38,7 @@ namespace SoundsUp.Business
 
             if (existingUser != null) return null;
 
-            entity.Password = _authenticator.HashPassword(entity.Password);
+            entity.Password = _passwordHash.HashPassword(entity.Password);
 
             var user = ModelRegisterViewToUser(entity);
 

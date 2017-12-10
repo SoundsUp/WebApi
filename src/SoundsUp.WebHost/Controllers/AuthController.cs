@@ -22,7 +22,7 @@ namespace SoundsUp.WebHost.Controllers
 
         // POST auth/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]Login entity)
+        public async Task<IActionResult> Login([FromBody]LoginViewModel entity)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
