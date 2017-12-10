@@ -5,10 +5,9 @@ using SoundsUp.Domain.Entities.Models;
 
 namespace SoundsUp.Domain.Contracts
 {
-    public interface IMessageManager
+    public interface ICorrespondentManager
     {
-        Task<Messages> Create(MessageViewModel entity);
-        Task<IEnumerable<Messages>> Get(ParticipantsViewModel participantsUser);
+        Task<IEnumerable<CorrespondentViewModel>> Get(int userId);
 
     }
 }
