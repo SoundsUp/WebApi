@@ -3,7 +3,6 @@ using SoundsUp.Data.Models;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities.Models;
 using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -35,12 +34,11 @@ namespace SoundsUp.Data
             return result;
         }
 
-        public virtual async Task<Users> GetByEmail(string email) 
+        public virtual async Task<Users> GetByEmail(string email)
         {
             var result = await _context.Users
                 .FromSql("EXECUTE dbo.GetUserByEmail  {0}", email)
                 .FirstOrDefaultAsync();
-
 
             return result;
         }
