@@ -6,13 +6,13 @@ using SoundsUp.Domain.Entities.Models;
 
 namespace SoundsUp.Business
 {
-    public class MessagesManager : IMessagesManager
+    public class MessageManager : IMessageManager
     {
 
-        private readonly IMessagesRepository _repository;
+        private readonly IMessageRepository _repository;
         private readonly IValidator _validator;
 
-        public MessagesManager(IMessagesRepository repository, IValidator validator)
+        public MessageManager(IMessageRepository repository, IValidator validator)
         {
             _repository = repository;
             _validator = validator;

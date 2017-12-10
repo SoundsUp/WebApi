@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SoundsUp.Data
 {
-    public class MessagesRepository : IMessagesRepository
+    public class MessageRepository : IMessageRepository
     {
         private readonly SoundsUpSQLDatabaseContext _context;
 
-        public MessagesRepository(SoundsUpSQLDatabaseContext context)
+        public MessageRepository(SoundsUpSQLDatabaseContext context)
         {
             _context = context;
         }
@@ -32,7 +32,7 @@ namespace SoundsUp.Data
                 .FromSql("EXECUTE [dbo].[GetConversation] " +
                           "@UserId1 = {0}, " +
                           "@UserId2 = {1}",
-                    participants.UserAuthorized, participants.UserConversation)
+                    participants.UserAuthorized, participants.UserParticipant)
                 .ToListAsync();
 
             return messages;

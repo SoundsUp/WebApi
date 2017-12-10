@@ -12,9 +12,9 @@ namespace SoundsUp.WebHost.Controllers
     [Route("api/[controller]")]
     public class MessagesController : BaseController
     {
-        private readonly IMessagesManager _manager;
+        private readonly IMessageManager _manager;
 
-        public MessagesController(IMessagesManager manager)
+        public MessagesController(IMessageManager manager)
         {
             _manager = manager;
         }
@@ -45,7 +45,7 @@ namespace SoundsUp.WebHost.Controllers
             var conversation = new ParticipantsViewModel
             {
                 UserAuthorized = id,
-                UserConversation = userConversation
+                UserParticipant = userConversation
             };
 
             var messages = await _manager.Get(conversation);

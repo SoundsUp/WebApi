@@ -3,6 +3,6 @@
     public class ParticipantsViewModel
     {
         public int UserAuthorized { get; set; }
-        public int UserConversation { get; set; }
+        public int UserParticipant { get; set; }
     }
 }
