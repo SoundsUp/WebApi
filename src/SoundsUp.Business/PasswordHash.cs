@@ -3,18 +3,18 @@ using SoundsUp.Domain.Contracts;
 
 namespace SoundsUp.Business
 {
-    public class Authenticator : IAuthenticator
+    public class PasswordHash : IPasswordHash
     {
         //https://github.com/tabrath/libsodium-core
         public bool Verify(string password, string hash)
         {
-            return PasswordHash.ArgonHashStringVerify(hash, password);
+            return Sodium.PasswordHash.ArgonHashStringVerify(hash, password);
         }
 
         public string HashPassword(string password)
         {
             // hash and save a password
-            return PasswordHash.ArgonHashString(password, PasswordHash.StrengthArgon.Moderate);
+            return Sodium.PasswordHash.ArgonHashString(password, Sodium.PasswordHash.StrengthArgon.Moderate);
         }
     }
 }
