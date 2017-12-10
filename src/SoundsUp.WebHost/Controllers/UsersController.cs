@@ -11,11 +11,11 @@ namespace SoundsUp.WebHost.Controllers
     [Route("api/[controller]")]
     public class UsersController : BaseController
     {
-        private readonly IManager _manager;
+        private readonly IUserManager _userManager;
 
-        public UsersController(IManager manager)
+        public UsersController(IUserManager userManager)
         {
-            _manager = manager;
+            _userManager = userManager;
         }
 
         // GET api/users/5
@@ -35,7 +35,7 @@ namespace SoundsUp.WebHost.Controllers
                 return BadRequest(ModelState);
             }
 
-            var users = await _manager.Get(id);
+            var users = await _userManager.Get(id);
 
             if (users == null)
             {
@@ -62,7 +62,7 @@ namespace SoundsUp.WebHost.Controllers
                 return NotFound();
             }
 
-            var users = await _manager.Update(id, view);
+            var users = await _userManager.Update(id, view);
 
             return Ok(users);
         }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SoundsUp.Business.UnitTests
 {
-    public class ManagerTests : TestsFor<Manager>
+    public class UserManagerTests : TestsFor<UserManager>
     {
         [Fact]
         public async Task Get_ValidatorSetToTrue_RepositoryIsCalled()

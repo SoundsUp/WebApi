@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace SoundsUp.Business
 {
-    public class Manager : IManager
+    public class UserManager : IUserManager
     {
         private readonly IUserRepository _userRepository;
         private readonly IValidator _validator;
 
-        public Manager(IUserRepository userRepository, IValidator validator)
+        public UserManager(IUserRepository userRepository, IValidator validator)
         {
             _userRepository = userRepository;
             _validator = validator;

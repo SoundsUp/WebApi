@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SoundsUp.Domain.Contracts
 {
-    public interface IManager
+    public interface IUserManager
     {
         Task<Account> Get(int id);
 
