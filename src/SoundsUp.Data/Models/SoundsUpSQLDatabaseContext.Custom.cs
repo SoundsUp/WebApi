@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SoundsUp.Domain.Entities;
 
 namespace SoundsUp.Data.Models
 {
     public partial class SoundsUpSQLDatabaseContext : DbContext
     {
+        public virtual DbSet<CorrespondentViewModel> Correspondents { get; set; }
+
         public SoundsUpSQLDatabaseContext(DbContextOptions<SoundsUpSQLDatabaseContext> options)
             : base(options)
         { }

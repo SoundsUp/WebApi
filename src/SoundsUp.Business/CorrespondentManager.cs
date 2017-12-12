@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using SoundsUp.Domain.Contracts;
-using System.Threading.Tasks;
+﻿using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
-using SoundsUp.Domain.Entities.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SoundsUp.Business
 {
@@ -18,13 +17,10 @@ namespace SoundsUp.Business
             _validator = validator;
         }
 
-        public Task<IEnumerable<CorrespondentViewModel>> Get(int userId)
+        public async Task<IEnumerable<CorrespondentViewModel>> Get(int userId)
         {
-            throw new System.NotImplementedException();
+            // Retrieve 5 correspondents by default
+            return await _repository.Get(userId, 5);
         }
-    }
-
-    public interface ICorrespondentRepository
-    {
     }
 }
