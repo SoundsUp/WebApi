@@ -20,7 +20,7 @@ namespace SoundsUp.Business.UnitTests
         {
             //Arrange
             GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-            GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
+            GetMockFor<IAuthRepository>().Setup(v => v.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(new Users()));
 
             // Act
             var result = await Instance.Login(new LoginViewModel());
@@ -34,7 +34,7 @@ namespace SoundsUp.Business.UnitTests
         {
             //Arrange
             GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
-            GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
+            GetMockFor<IAuthRepository>().Setup(v => v.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(new Users()));
 
             // Act
             var result = await Instance.Login(new LoginViewModel());
@@ -48,7 +48,7 @@ namespace SoundsUp.Business.UnitTests
         {
             //Arrange
             GetMockFor<IPasswordHash>().Setup(v => v.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
-            GetMockFor<IAuthRepository>().Setup(v => v.Get(It.IsAny<Expression<Func<Users, bool>>>())).Returns(Task.FromResult(new Users()));
+            GetMockFor<IAuthRepository>().Setup(v => v.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(new Users()));
 
             // Act
             var result = await Instance.Login(new LoginViewModel());
