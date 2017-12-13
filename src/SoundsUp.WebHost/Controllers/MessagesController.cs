@@ -19,11 +19,21 @@ namespace SoundsUp.WebHost.Controllers
             _manager = manager;
         }
 
-        // POST api/messages
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]MessageViewModel entity)
+        // POST api/messages/id
+        [HttpPost("{userConversation}")]
+        public async Task<IActionResult> Post([FromRoute] int userConversation, [FromBody] MessageContentViewModel body)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+
+            var parsed = GetIdFromClaims(out var id);
+
+            var entity = new MessageViewModel
+            {
+                UserTo = userConversation,
+                UserFrom = id,
+                MsgContent = body.MsgContent
+            };
 
             var messages = await _manager.Create(entity);
             if (messages == null)
