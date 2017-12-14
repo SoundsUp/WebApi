@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SoundsUp.Domain.Contracts;
 using SoundsUp.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoundsUp.WebHost.Controllers
@@ -18,19 +21,18 @@ namespace SoundsUp.WebHost.Controllers
 
         // POST api/messages/id
         [HttpPost("{userConversation}")]
-        public async Task<IActionResult> Post([FromRoute] int userConversation, [FromBody][Required] string body)
+        public async Task<IActionResult> Post([FromRoute] int userConversation, [FromBody] MessageContentViewModel body)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var parsed = GetIdFromClaims(out var id);
 
-            if (!parsed) return Unauthorized();
+            var parsed = GetIdFromClaims(out var id);
 
             var entity = new MessageViewModel
             {
                 UserTo = userConversation,
                 UserFrom = id,
-                MsgContent = body
+                MsgContent = body.MsgContent
             };
 
             var messages = await _manager.Create(entity);
